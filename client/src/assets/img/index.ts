@@ -1,0 +1,6 @@
+import dashboard from "./grip.svg";
+import createCampaign from "./square-plus.svg";
+import profile from "./circle-user-round.svg";
+import logout from "./log-out.svg";
+
+export { dashboard, createCampaign, profile, logout };
