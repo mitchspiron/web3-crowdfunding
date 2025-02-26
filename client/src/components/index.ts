@@ -4,3 +4,6 @@ export { default as Recent } from "./Recent";
 export { default as StatCard } from "./StatCard";
 export { default as FundCard } from "./FundCard";
 export { default as Banner } from "./Banner";
+export { default as FormField } from "./FormField";
+export { default as Loader } from "./Loader";
+export { default as CustomLoader } from "./CustomLoader";

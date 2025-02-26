@@ -2,7 +2,7 @@ import { createCampaign, dashboard, logout, profile } from "../assets/img";
 
 export const navlinks = [
   {
-    name: "home",
+    name: "dashboard",
     imgUrl: dashboard,
     link: "/",
   },
@@ -19,6 +19,17 @@ export const navlinks = [
   {
     name: "logout",
     imgUrl: logout,
-    link: "/",
+    link: "",
   },
 ];
+
+export interface Campaign {
+  owner: string;
+  title: string;
+  description: string;
+  target: string;
+  deadline: Date;
+  amountCollected: string;
+  image: string;
+  pId: number;
+}

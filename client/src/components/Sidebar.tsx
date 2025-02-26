@@ -1,6 +1,43 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { navlinks } from "../constants";
+import {
+  LayoutDashboard,
+  User,
+  LogOut,
+  PlusCircle,
+  LucideProps,
+} from "lucide-react";
+
+const icons: Record<string, React.FC<LucideProps>> = {
+  dashboard: LayoutDashboard,
+  campaign: PlusCircle,
+  profile: User,
+  logout: LogOut,
+};
+
+interface IconProps {
+  name: string;
+  isActive: boolean;
+}
+
+const Icon: React.FC<IconProps> = ({ name, isActive }) => {
+  const LucideIcon = icons[name];
+  return (
+    <div
+      className={`flex mt-2 items-center space-x-3 px-4 py-3 rounded-lg cursor-pointer transition-colors duration-300 ${
+        isActive ? "bg-dark-700" : "hover:bg-dark-600"
+      }`}
+    >
+      {LucideIcon && <LucideIcon className="text-gray-300" size={20} />}
+      <span className="text-gray-300 capitalize">{name}</span>
+    </div>
+  );
+};
 
 const Sidebar = () => {
+  const location = useLocation();
+
   return (
     <aside className="fixed left-0 top-0 h-full w-64 glass-effect z-30">
       <div className="p-6">
@@ -10,81 +47,14 @@ const Sidebar = () => {
             <p className="text-xs uppercase text-gray-400 font-semibold">
               Menu Principal
             </p>
-            <a
-              href="#"
-              className="flex items-center space-x-3 px-4 py-3 bg-dark-700 rounded-lg hover:bg-dark-600 transition-colors duration-300"
-            >
-              <i className="fas fa-home text-gray-300"></i>
-              <span className="text-gray-300">Tableau de bord</span>
-            </a>
-            <a
-              href="#"
-              className="flex items-center space-x-3 px-4 py-3 hover:bg-dark-600 rounded-lg transition-colors duration-300"
-            >
-              <i className="fas fa-compass text-gray-300"></i>
-              <span className="text-gray-300">Découvrir</span>
-            </a>
-            <a
-              href="#"
-              className="flex items-center space-x-3 px-4 py-3 hover:bg-dark-600 rounded-lg transition-colors duration-300"
-            >
-              <i className="fas fa-heart text-gray-300"></i>
-              <span className="text-gray-300">Favoris</span>
-            </a>
-          </div>
-
-          <div className="space-y-2">
-            <p className="text-xs uppercase text-gray-400 font-semibold">
-              Catégories
-            </p>
-            <a
-              href="#"
-              className="flex items-center space-x-3 px-4 py-3 hover:bg-dark-600 rounded-lg transition-colors duration-300"
-            >
-              <i className="fas fa-laptop-code text-gray-300"></i>
-              <span className="text-gray-300">Technologie</span>
-            </a>
-            <a
-              href="#"
-              className="flex items-center space-x-3 px-4 py-3 hover:bg-dark-600 rounded-lg transition-colors duration-300"
-            >
-              <i className="fas fa-palette text-gray-300"></i>
-              <span className="text-gray-300">Art & Culture</span>
-            </a>
-            <a
-              href="#"
-              className="flex items-center space-x-3 px-4 py-3 hover:bg-dark-600 rounded-lg transition-colors duration-300"
-            >
-              <i className="fas fa-leaf text-gray-300"></i>
-              <span className="text-gray-300">Environnement</span>
-            </a>
-            <a
-              href="#"
-              className="flex items-center space-x-3 px-4 py-3 hover:bg-dark-600 rounded-lg transition-colors duration-300"
-            >
-              <i className="fas fa-gamepad text-gray-300"></i>
-              <span className="text-gray-300">Jeux vidéo</span>
-            </a>
-          </div>
-
-          <div className="space-y-2">
-            <p className="text-xs uppercase text-gray-400 font-semibold">
-              Personnel
-            </p>
-            <a
-              href="#"
-              className="flex items-center space-x-3 px-4 py-3 hover:bg-dark-600 rounded-lg transition-colors duration-300"
-            >
-              <i className="fas fa-user text-gray-300"></i>
-              <span className="text-gray-300">Profil</span>
-            </a>
-            <a
-              href="#"
-              className="flex items-center space-x-3 px-4 py-3 hover:bg-dark-600 rounded-lg transition-colors duration-300"
-            >
-              <i className="fas fa-cog text-gray-300"></i>
-              <span className="text-gray-300">Paramètres</span>
-            </a>
+            {navlinks.map((link) => {
+              const isActive = location.pathname === link.link;
+              return (
+                <Link to={link.link} key={link.name}>
+                  <Icon name={link.name} isActive={isActive} />
+                </Link>
+              );
+            })}
           </div>
         </nav>
       </div>
